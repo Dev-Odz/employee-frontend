@@ -1,0 +1,41 @@
+import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
+
+export const routes: Routes = [
+
+    {
+        path: 'auth',
+        loadChildren: () =>
+            import('./features/auth/auth.routes')
+                .then(m => m.AUTH_ROUTES)
+    },
+
+    {
+        path: 'employees',
+        canActivate: [authGuard],
+        loadChildren: () =>
+            import('./features/employees/employees.routes')
+                .then(m => m.EMPLOYEE_ROUTES)
+    },
+    {
+        path: 'departments',
+        canActivate: [authGuard],
+        loadChildren: () =>
+            import('./features/departments/department.routes')
+                .then(m => m.EMPLOYEE_ROUTES)
+    },
+
+    {
+        path: 'dashboard',
+        canActivate: [authGuard],
+        loadChildren: () =>
+            import('./features/dashboard/dashboard.routes')
+                .then(m => m.EMPLOYEE_ROUTES)
+    },
+
+    {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    }
+];

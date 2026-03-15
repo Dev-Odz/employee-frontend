@@ -1,0 +1,30 @@
+<div class="container h-100 d-flex flex-column pt-5">
+
+    <div class="mb-5">
+        <h2>Departments</h2>
+
+        <ul>
+            <li *ngFor="let dept of departments" class="d-flex align-items-center justify-content-between">
+                <a class="m-0">
+                    {{ dept.name }}
+                </a>
+
+            </li>
+        </ul>
+
+
+        <button type="button" (click)="onAddDepartment()">Add Department
+
+            <i class="fas fa-plus-circle p-2"></i>
+
+
+        </button>
+
+    </div>
+
+
+    @if (this.isShowAddDepartment) {
+    <app-create-department (onSubmitOutput)="onRefreshData()"></app-create-department>
+    }
+
+</div>

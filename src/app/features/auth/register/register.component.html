@@ -1,0 +1,63 @@
+<div class="login-container m-3">
+    <h2>Register</h2>
+
+    <form class="m-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div>
+                <label class="mx-3" for="name">Name</label>
+                <input type="text" id="name" formControlName="name" (input)="onInputChange()" />
+                <!-- Add validation messages -->
+
+                @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+                <div class="error">
+                    Please enter your name
+                </div>
+                }
+            </div>
+
+            <div>
+                <label class="mx-3" for="email">Email</label>
+                <input type="email" id="email" formControlName="email" (input)="onInputChange()" />
+                <!-- Add validation messages -->
+            
+                @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                <div class="error">
+                    Please enter a valid email
+                </div>
+                }
+            </div>
+
+            <div>
+                <label class="mx-3" for="password">Password</label>
+                <input type="password" id="password" formControlName="password" (input)="onInputChange()" />
+
+
+                @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                <div class="error">
+                    Password must be at least 6 characters
+                </div>
+                }
+            </div>
+            <div>
+                <label class="mx-3" for="password">Password</label>
+                <input type="password" id="password" formControlName="password" (input)="onInputChange()" />
+
+
+                @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                <div class="error">
+                    Password must be at least 6 characters
+                </div>
+                }
+            </div>
+
+
+            <div class="">
+                <button type="submit" [disabled]="!registerForm.valid">
+                    Register
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+</div>

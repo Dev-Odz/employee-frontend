@@ -1,0 +1,45 @@
+<div class="container h-100 d-flex flex-column pt-5">
+
+
+    <div class="mb-5">
+        <h2>Employees</h2>
+
+        <div *ngIf="loading" class="spinner w-100 d-flex justify-content-center align-items-center">
+            <div class="loader"></div>
+        </div>
+
+        <ul>
+            <li *ngFor="let emp of employees"
+                class="d-flex align-items-center justify-content-between"
+                [class.selected-employee]="selectedEmployee?.id === emp.id"
+                [class.unselected-employee]="selectedEmployee?.id !== emp.id"
+                >
+                <a class="m-0" (click)="onEmployeeClick(emp)">
+                    {{ emp.name }}
+                </a>
+                <div>
+                    <i class="fas fa-trash-alt p-2" (click)="onDeleteEmployee(emp)"></i>
+                    <i class="fas fa-edit p-2" (click)="onEditEmployee(emp)"></i>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <!-- do not display if selected employee is deleted -->
+    <app-display-employee *ngIf="selectedEmployee && !isUpdateDialogOpen"
+        [employee]="selectedEmployee"></app-display-employee>
+
+
+    @if (isUpdateDialogOpen) {
+    <app-update-employee (isUpdateEmployee)="onUpdateEmployee($event)"
+        [employee]="selectedEmployee"></app-update-employee>
+    }
+</div>
+
+@if (isDeleteDialogOpen) {
+<app-ok-cancel [title]="'Confirm Deletion'"
+    [message]="'Are you sure you want to delete ' + employeeToDelete?.name + '?'" (ok)="onDeleteConfirm()"
+    (cancel)="onCancelDelete()"></app-ok-cancel>
+}

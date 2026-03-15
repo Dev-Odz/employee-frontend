@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  frontend:
+    container_name: employee-frontend
+    build: .
+    ports:
+      - "4200:80"

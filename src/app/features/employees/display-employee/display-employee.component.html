@@ -1,0 +1,6 @@
+<div *ngIf="employee()">
+    <h3>{{ employee()!.name || "No name available" }}</h3>
+    <p>Email: {{ employee()!.email || "No email available" }}</p>
+    <p>Role: {{ employee()!.role || "No role available" }}</p>
+    <p>Department: {{ employee()!.department?.name || "No department available" }}</p>
+</div>

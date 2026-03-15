@@ -1,0 +1,46 @@
+<div class="login-container m-3 h-100">
+    <h2>Login</h2>
+
+    <form class="m-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <div>
+                <label class="mx-3" for="email">Email</label>
+                <input type="email" id="email" formControlName="email" (input)="onInputChange()" />
+                <div *ngIf="loginForm.controls['email'].touched   
+                        && loginForm.controls['email'].invalid">
+
+                    <small *ngIf="loginForm.controls['email'].errors?.['required']">
+                        Email is required
+                    </small>
+
+                    <small *ngIf="loginForm.controls['email'].errors?.['email']" class="text-danger">
+                        Invalid email format
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div>
+                <label class="mx-3" for="password">Password</label>
+                <input type="password" id="password" formControlName="password" (input)="onInputChange()" />
+
+
+                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                <div class="error">
+                    Password must be at least 6 characters
+                </div>
+                }
+            </div>
+
+
+            <div class="">
+                <button type="submit" [disabled]="loginForm.invalid">
+                    Login
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,36 @@
+on:  
+  push:  
+    branches:  
+      - main  
+  
+jobs:  
+  build-and-deploy:  
+    runs-on: ubuntu-latest  
+  
+    steps:  
+      - name: Checkout repository  
+        uses: actions/checkout@v3  
+  
+      - name: Setup Node  
+        uses: actions/setup-node@v3  
+        with:  
+          node-version: 20  
+  
+      - name: Install dependencies  
+        run: npm install  
+        working-directory: ./frontend  
+  
+      - name: Build Angular  
+        run: npm run build  
+        working-directory: ./frontend  
+  
+      - name: Deploy to S3  
+        uses: jakejarvis/s3-sync-action@master  
+        with:  
+          args: --delete  
+        env:  
+          AWS_S3_BUCKET: employee-frontend-app  
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}  
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}  
+          AWS_REGION: ap-southeast-1  
+          SOURCE_DIR: frontend/dist/employee-frontend/browser
